@@ -1,0 +1,34 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <description>Automated Apache Deployment Pipeline</description>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/worknabhishek/jenkins-practice-2.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/main</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+  </scm>
+  <builders>
+    </builders>
+  <publishers>
+    <jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin>
+      <delegate>
+        <publishers>
+          <jenkins.plugins.publish__over__ssh.BapSshPublisher>
+            <configName>ansible</configName>
+            <transfers>
+              <jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                <execCommand>ansible-playbook /sourcecode/abc.yml</execCommand>
+              </jenkins.plugins.publish__over__ssh.BapSshTransfer>
+            </transfers>
+          </jenkins.plugins.publish__over__ssh.BapSshPublisher>
+        </publishers>
+      </delegate>
+    </jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin>
+  </publishers>
+</project>
